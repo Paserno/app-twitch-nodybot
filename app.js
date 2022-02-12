@@ -21,10 +21,14 @@ client.connect();
 
 client.on('message', (channel, tags, message, self) => {
 
-    if (self) return;
+    if (self || !message.startsWith('!')) return;
 
+    const args = message.split(' ');
+    // console.log(args);
+	const command = args.shift().toLowerCase();
+    // console.log(command);
 
-    if (message.toLowerCase() === '!games') {
+    if (command === '!games') {
         const juego = mayorMenor().numerosRandom;
         global = juego;
 
@@ -73,6 +77,9 @@ client.on('message', (channel, tags, message, self) => {
             userGame = {};
 
         }
+    }else {
+        client.say(channel, `Para jugar escribe !games`);
+    
     }
 
 
